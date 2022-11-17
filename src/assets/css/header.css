@@ -1,0 +1,40 @@
+.header_container {
+  width: 100%;
+  background-color: #7a79fd;
+  height: 80px;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoImg {
+  width: 180px;
+  height: 60px;
+}
+
+.header_btns {
+  width: 400px;
+  height: 100px;
+  position: fixed;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header_btn {
+  background-color: white;
+  border-radius: 20px;
+  border: none;
+  width: 120px;
+  height: 40px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.header_btn:hover {
+  transform: scale(1.1);
+  transition: ease-in 0.3s;
+}

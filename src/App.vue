@@ -1,9 +1,9 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div id="app">
+    <TheHeader v-if="footerAndHeaderVis" />
+    <router-view :val="footerAndHeaderVis" @val="headerAndFooterVis" />
+    <TheFooter v-if="footerAndHeaderVis" />
+  </div>
 </template>
 
 <style>
@@ -13,18 +13,33 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
 }
 </style>
+
+<script>
+import TheHeader from "@/components/TheHeader.vue";
+import TheFooter from "@/components/TheFooter.vue";
+
+export default {
+  components: {
+    TheHeader,
+    TheFooter,
+  },
+  data() {
+    return {
+      footerAndHeaderVis: true,
+    };
+  },
+  methods: {
+    headerAndFooterVis() {
+      console.log("test");
+      this.$data.footerAndHeaderVis = false;
+    },
+  },
+};
+</script>
