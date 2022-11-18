@@ -9,7 +9,7 @@
     </div>
     <div class="login_form_right_container">
       <router-link to="/">
-        <button class="login_form_delete_btn" @click="SET_IS_VIS">x</button>
+        <button class="login_form_delete_btn">x</button>
       </router-link>
       <div class="login_form_right_inner_container">
         <h1 class="login_form_right_title">로그인</h1>
@@ -35,16 +35,8 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-
-const visibleStore = "visibleStore";
-
 export default {
   name: "LoginForm",
-
-  methods: {
-    ...mapMutations(visibleStore, ["SET_IS_VIS"]),
-  },
 };
 </script>
 

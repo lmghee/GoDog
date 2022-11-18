@@ -3,6 +3,7 @@ import { httpMake } from "@/api/index";
 const api = httpMake();
 
 async function join(user, success, fail) {
+  console.log(JSON.stringify(user));
   await api
     .post(`/member/join`, JSON.stringify(user))
     .then(success)

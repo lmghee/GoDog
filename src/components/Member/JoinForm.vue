@@ -9,40 +9,75 @@
     </div>
     <div class="login_form_right_container">
       <router-link to="/">
-        <button class="login_form_delete_btn" @click="SET_IS_VIS">x</button>
+        <button class="login_form_delete_btn">x</button>
       </router-link>
       <div class="login_form_right_inner_container">
         <h1 class="login_form_right_title">회원가입</h1>
         <form class="join_form">
           <p class="login_form_right_p">ID</p>
-          <input class="login_form_input" />
+          <input
+            class="login_form_input"
+            v-model="user.userId"
+            @keyup.enter="confirm"
+          />
           <div class="join_form_empty"></div>
+
           <p class="login_form_right_p">Password</p>
-          <input class="login_form_input" />
+          <input
+            class="login_form_input"
+            v-model="user.userPwd"
+            @keyup.enter="confirm"
+          />
           <div class="join_form_empty"></div>
+
           <p class="login_form_right_p">Name</p>
-          <input class="login_form_input" />
+          <input
+            class="login_form_input"
+            v-model="user.userName"
+            @keyup.enter="confirm"
+          />
           <div class="join_form_empty"></div>
+
           <p class="login_form_right_p">Email</p>
-          <input class="login_form_input" />
+          <input
+            class="login_form_input"
+            v-model="user.userEmail"
+            @keyup.enter="confirm"
+          />
           <div class="join_form_empty"></div>
         </form>
-        <button class="login_form_loginBtn">Join</button>
+        <button class="login_form_loginBtn" @click="confirm">Join</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 
-const visibleStore = "visibleStore";
+const memberStore = "memberStore";
 
 export default {
   name: "joinForm",
 
+  data() {
+    return {
+      user: {
+        userId: null,
+        userPwd: null,
+        userName: null,
+        userEmail: null,
+      },
+    };
+  },
+
   methods: {
-    ...mapMutations(visibleStore, ["SET_IS_VIS"]),
+    ...mapActions(memberStore, ["userJoin"]),
+
+    async confirm() {
+      await this.userJoin(this.user);
+      this.$router.push({ name: "main" });
+    },
   },
 };
 </script>
