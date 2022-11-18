@@ -27,4 +27,10 @@ async function tokenRegeneration(user, success, fail) {
   await api.post(`/member/refresh`, user).then(success).catch(fail);
 }
 
-export { join, login, findById, tokenRegeneration };
+async function logout(userid, success, fail) {
+  await api.get(`/member/logout/${userid}`)
+  .then(success)
+  .catch(fail);
+}
+
+export { join, login, findById, tokenRegeneration, logout};
