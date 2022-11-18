@@ -35,6 +35,13 @@ const routes = [
     path: "/map",
     name: "map",
     component: MapView,
+    children: [
+      {
+        path: "travelmap",
+        name: "travelmap",
+        component: () => import("@/components/Map/TravelMap"),
+      },
+    ],
   },
 ];
 
