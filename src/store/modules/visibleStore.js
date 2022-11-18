@@ -3,9 +3,9 @@ const visibleStore = {
   state: {
     footerAndHeaderVis: true,
   },
-  mutatioms: {
-    SET_IS_VIS: (state, footerAndHeaderVis) => {
-      state.footerAndHeaderVis = footerAndHeaderVis;
+  mutations: {
+    SET_IS_VIS: (state) => {
+      state.footerAndHeaderVis = !state.footerAndHeaderVis;
     },
   },
 };
