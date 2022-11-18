@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TheHeader v-if="footerAndHeaderVis" />
-    <router-view :val="footerAndHeaderVis" @val="headerAndFooterVis" />
+    <router-view />
     <TheFooter v-if="footerAndHeaderVis" />
   </div>
 </template>
@@ -22,6 +22,10 @@
 </style>
 
 <script>
+import { mapState } from "vuex";
+
+const visibleStore = "visibleStore";
+
 import TheHeader from "@/components/TheHeader.vue";
 import TheFooter from "@/components/TheFooter.vue";
 
@@ -30,16 +34,8 @@ export default {
     TheHeader,
     TheFooter,
   },
-  data() {
-    return {
-      footerAndHeaderVis: true,
-    };
-  },
-  methods: {
-    headerAndFooterVis() {
-      console.log("test");
-      this.$data.footerAndHeaderVis = false;
-    },
+  computed: {
+    ...mapState(visibleStore, ["footerAndHeaderVis"]),
   },
 };
 </script>

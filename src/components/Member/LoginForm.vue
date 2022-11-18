@@ -7,9 +7,8 @@
       <p class="login_fomr_p">가자개가 추천하는 여행지로반려동물과</p>
       <p class="login_fomr_p">더 아름답고소중한 추억을 만들어보세요</p>
     </div>
-
     <div class="login_form_right_container">
-      <router-link to="/">
+      <router-link @click.native="home" to="/">
         <button class="login_form_delete_btn">x</button>
       </router-link>
       <div class="login_form_right_inner_container">
@@ -34,9 +33,20 @@
 </template>
 
 <script>
-// console.log(this.$visibleStore.footerAndHeaderVis);
+import { mapState } from "vuex";
+
+const visibleStore = "visibleStore";
+
 export default {
   name: "LoginForm",
+  computed: {
+    ...mapState(visibleStore, ["footerAndHeaderVis"]),
+  },
+  methods: {
+    home: function () {
+      console.log("12312312");
+    },
+  },
 };
 </script>
 

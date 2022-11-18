@@ -7,10 +7,6 @@
 <script>
 export default {
   name: "MemberView",
-  props: ["val"],
-  created() {
-    this.$emit("val");
-  },
 };
 </script>
 

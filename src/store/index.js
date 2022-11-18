@@ -5,10 +5,8 @@ Vue.use(Vuex);
 
 import visibleStore from "@/store/modules/visibleStore.js";
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
   modules: {
-    visibleStore: visibleStore,
+    visibleStore,
   },
 });
-
-export default store;

@@ -1,6 +1,12 @@
 const visibleStore = {
+  namespaced: true,
   state: {
-    footerAndHeaderVis: false,
+    footerAndHeaderVis: true,
+  },
+  mutatioms: {
+    SET_IS_VIS: (state, footerAndHeaderVis) => {
+      state.footerAndHeaderVis = footerAndHeaderVis;
+    },
   },
 };
 
