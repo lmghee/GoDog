@@ -15,4 +15,14 @@ async function login(user, success, fail) {
   .catch(fail);
 }
 
-export { join,login };
+async function findById(userid, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api.get(`/member/info/${userid}`).then(success).catch(fail);
+}
+
+async function tokenRegeneration(user, success, fail) {
+  api.defaults.headers["refresh-token"] = sessionStorage.getItem("refresh-token"); //axios header에 refresh-token 셋팅
+  await api.post(`/member/refresh`, user).then(success).catch(fail);
+}
+
+export { join,login ,findById, tokenRegeneration, };

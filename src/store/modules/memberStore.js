@@ -62,10 +62,11 @@ const memberStore = {
         },
         async getUserInfo({ commit, dispatch }, token) {
         let decodeToken = jwtDecode(token);
-        // console.log("2. getUserInfo() decodeToken :: ", decodeToken);
+        console.log("2. getUserInfo() decodeToken :: ", decodeToken);
         await findById(
-            decodeToken.userid,
+            decodeToken.userId,
             ({ data }) => {
+                console.log(data.message);
             if (data.message === "success") {
                 commit("SET_USER_INFO", data.userInfo);
              // console.log("3. getUserInfo data >> ", data);
