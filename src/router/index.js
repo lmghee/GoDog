@@ -28,6 +28,11 @@ const routes = [
         name: "loginform",
         component: () => import("@/components/Member/LoginForm"),
       },
+      {
+        path: "joinform",
+        name: "joinform",
+        component: () => import("@/components/Member/JoinForm"),
+      },
     ],
   },
 

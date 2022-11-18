@@ -12,23 +12,22 @@
         <button class="login_form_delete_btn" @click="SET_IS_VIS">x</button>
       </router-link>
       <div class="login_form_right_inner_container">
-        <h1 class="login_form_right_title">로그인</h1>
-        <form class="login_form">
+        <h1 class="login_form_right_title">회원가입</h1>
+        <form class="join_form">
           <p class="login_form_right_p">ID</p>
           <input class="login_form_input" />
-          <div class="login_form_empty"></div>
+          <div class="join_form_empty"></div>
           <p class="login_form_right_p">Password</p>
           <input class="login_form_input" />
+          <div class="join_form_empty"></div>
+          <p class="login_form_right_p">Name</p>
+          <input class="login_form_input" />
+          <div class="join_form_empty"></div>
+          <p class="login_form_right_p">Email</p>
+          <input class="login_form_input" />
+          <div class="join_form_empty"></div>
         </form>
-        <button class="login_form_loginBtn">Login</button>
-        <div class="login_form_info">
-          <p class="login_form_info_p">
-            저희 사이트에 처음이신가요?&nbsp;&nbsp;&nbsp;
-          </p>
-          <router-link to="/member/joinform">
-            <p class="login_form_info_p2">가입하기</p>
-          </router-link>
-        </div>
+        <button class="login_form_loginBtn">Join</button>
       </div>
     </div>
   </div>
@@ -40,7 +39,7 @@ import { mapMutations } from "vuex";
 const visibleStore = "visibleStore";
 
 export default {
-  name: "LoginForm",
+  name: "joinForm",
 
   methods: {
     ...mapMutations(visibleStore, ["SET_IS_VIS"]),
