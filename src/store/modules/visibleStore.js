@@ -1,3 +1,5 @@
+import { join } from "@/api/member";
+
 const visibleStore = {
   namespaced: true,
   state: {
@@ -6,6 +8,15 @@ const visibleStore = {
   mutations: {
     SET_IS_VIS: (state) => {
       state.footerAndHeaderVis = !state.footerAndHeaderVis;
+    },
+  },
+  actions: {
+    async confirm(user) {
+      await join(user, ({ data }) => {
+        if (data == "success") {
+          console.log(data);
+        }
+      });
     },
   },
 };
