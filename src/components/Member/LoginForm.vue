@@ -23,7 +23,9 @@
         </form>
         <button class="login_form_loginBtn">Login</button>
         <div class="login_form_info">
-          <p class="login_form_info_p">저희 사이트에 처음이신가요?&nbsp;&nbsp;&nbsp;</p>
+          <p class="login_form_info_p">
+            저희 사이트에 처음이신가요?&nbsp;&nbsp;&nbsp;
+          </p>
           <p class="login_form_info_p2">가입하기</p>
         </div>
       </div>
@@ -32,7 +34,7 @@
 </template>
 
 <script>
-console.log(this.$visibleStore.footerAndHeaderVis);
+// console.log(this.$visibleStore.footerAndHeaderVis);
 export default {
   name: "LoginForm",
 };

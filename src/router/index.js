@@ -1,8 +1,11 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import Vue from "vue";
+import VueRouter from "vue-router";
 import BoradView from "@/views/BoardView.vue";
 import MemberView from "@/views/MemberView.vue";
 import MainView from "@/views/MainView.vue";
 import MapView from "@/views/MapView.vue";
+
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -35,8 +38,9 @@ const routes = [
   },
 ];
 
-const router = createRouter({
-  history: createWebHashHistory(),
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
   routes,
 });
 

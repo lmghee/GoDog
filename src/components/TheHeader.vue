@@ -7,7 +7,7 @@
       <router-link to="/member/loginform">
         <button class="header_btn">로그인</button>
       </router-link>
-      <router-link to="">
+      <router-link to="/">
         <button class="header_btn">회원가입</button>
       </router-link>
     </div>
