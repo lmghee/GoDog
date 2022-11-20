@@ -11,14 +11,12 @@
   align-items: center;
   overflow-y: hidden;
 }
-
 .main_container_back_ground {
   width: 50%;
   height: 100%;
   position: relative;
   z-index: -1;
 }
-
 .main_img {
   width: 100%;
   height: 100%;
