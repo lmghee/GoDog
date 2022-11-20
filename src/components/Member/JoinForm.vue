@@ -14,39 +14,34 @@
       <div class="login_form_right_inner_container">
         <h1 class="login_form_right_title">회원가입</h1>
         <form class="join_form">
-          <p class="login_form_right_p">ID</p>
+          <p class="join_form_right_p">ID</p>
           <input
             class="login_form_input"
             v-model="user.userId"
             @keyup.enter="confirm"
           />
-          <div class="join_form_empty"></div>
-
-          <p class="login_form_right_p">Password</p>
+          <p class="join_form_right_p">Password</p>
           <input
             class="login_form_input"
             v-model="user.userPwd"
             @keyup.enter="confirm"
           />
-          <div class="join_form_empty"></div>
 
-          <p class="login_form_right_p">Name</p>
+          <p class="join_form_right_p">Name</p>
           <input
             class="login_form_input"
             v-model="user.userName"
             @keyup.enter="confirm"
           />
-          <div class="join_form_empty"></div>
 
-          <p class="login_form_right_p">Email</p>
+          <p class="join_form_right_p">Email</p>
           <input
             class="login_form_input"
             v-model="user.userEmail"
             @keyup.enter="confirm"
           />
-          <div class="join_form_empty"></div>
         </form>
-        <button class="login_form_loginBtn" @click="confirm">Join</button>
+        <button class="join_form_joinBtn" @click="confirm">Join</button>
       </div>
     </div>
   </div>
