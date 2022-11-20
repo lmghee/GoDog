@@ -73,11 +73,11 @@ export default {
       isSelect: false,
       selList: [],
       makerSet: [
-        [22, 22, 10, -5, 36, 98],
-        [22, 22, 8, 15, 33, 90],
-        [22, 22, 4, 35, 30, 96],
-        [22, 22, 4, 58, 30, 96],
-        [22, 22, 4, 78, 30, 96],
+        [27, 27, 10, -5, 36, 98],
+        [27, 27, 8, 15, 33, 90],
+        [27, 27, 4, 35, 30, 96],
+        [27, 27, 4, 58, 30, 96],
+        [27, 27, 4, 78, 30, 96],
       ],
     };
   },
@@ -124,7 +124,7 @@ export default {
       var mapContainer = document.getElementById("map"), // 지도를 표시할 div
         mapOption = {
           center: new kakao.maps.LatLng(37.790126, 128.344644), // 지도의 중심좌표
-          level: 11, // 지도의 확대 레벨
+          level: 5, // 지도의 확대 레벨
         };
       this.map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
@@ -158,6 +158,8 @@ export default {
       this.pcLength.push(this.pc03.length);
       this.pcLength.push(this.pc04.length);
       this.pcLength.push(this.pc05.length);
+
+      var bounds = new kakao.maps.LatLngBounds();
 
       for (let i = 0; i < 5; i++) {
         var markerImageSrc = require("@/assets/img/category.png");
@@ -201,6 +203,8 @@ export default {
             image: markerImage, // 마커 이미지
           });
 
+          bounds.extend(new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
+
           if (i === 0) {
             this.pc01Makers.push(marker);
           } else if (i === 1) {
@@ -214,6 +218,7 @@ export default {
           }
         }
       }
+      this.map.setBounds(bounds);
     },
     displayMarker2() {
       this.pc01 = [];
@@ -227,6 +232,9 @@ export default {
       this.pc04Makers = [];
       this.pc05Makers = [];
       console.log(this.selList);
+
+      var bounds = new kakao.maps.LatLngBounds();
+
       for (let i = 0; i < this.selList.length; i++) {
         var num = this.selList[i].pccode.substring(3, 4) - 1;
         var markerImageSrc = require("@/assets/img/category.png");
@@ -251,6 +259,8 @@ export default {
           image: markerImage, // 마커 이미지
         });
 
+        bounds.extend(new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
+
         if (num === 0) {
           this.pc01Makers.push(marker);
         } else if (num === 1) {
@@ -263,6 +273,8 @@ export default {
           this.pc05Makers.push(marker);
         }
       }
+
+      this.map.setBounds(bounds);
     },
     changeMarker(type) {
       if (type === "pc01") {
