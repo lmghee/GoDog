@@ -1,5 +1,5 @@
 <template>
-  <div id="container">
+  <div id="map-container">
     <div class="row col-md-12 justify-content-center mb-2">
       <div class="form-group col-md-2">
         <select class="form-select bg-secondary text-light" id="sido">
@@ -127,6 +127,18 @@ export default {
           level: 5, // 지도의 확대 레벨
         };
       this.map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+      var zoomControl = new kakao.maps.ZoomControl();
+      this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+      // 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+      kakao.maps.event.addListener(this.map, "zoom_changed", function () {
+        // 지도의 현재 레벨을 얻어옵니다
+        // var level = this.map.getLevel();
+        // console.log(level);
+        // document.querySelector("#container").addEventListener("wheel", function () {
+        console.log(this.map);
+      });
 
       this.displayMarker();
     },
