@@ -9,6 +9,13 @@ async function join(user, success, fail) {
     .catch(fail);
 }
 
+async function infoChange(user, success, fail) {
+  await api
+    .put(`/member/update`, JSON.stringify(user))
+    .then(success)
+    .catch(fail);
+}
+
 async function login(user, success, fail) {
   await api
     .post(`/member/login`, JSON.stringify(user))
@@ -28,9 +35,7 @@ async function tokenRegeneration(user, success, fail) {
 }
 
 async function logout(userid, success, fail) {
-  await api.get(`/member/logout/${userid}`)
-  .then(success)
-  .catch(fail);
+  await api.get(`/member/logout/${userid}`).then(success).catch(fail);
 }
 
-export { join, login, findById, tokenRegeneration, logout};
+export { join, login, findById, tokenRegeneration, logout, infoChange };

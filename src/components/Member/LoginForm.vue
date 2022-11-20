@@ -15,12 +15,32 @@
         <h1 class="login_form_right_title">로그인</h1>
         <form class="login_form">
           <p class="login_form_right_p">ID</p>
-          <input class="login_form_input" type="text" id="id" v-model="user.userId" name="userId" @keyup.enter="confirm" />
+          <input
+            class="login_form_input"
+            type="text"
+            id="id"
+            v-model="user.userId"
+            name="userId"
+            @keyup.enter="confirm"
+          />
           <div class="login_form_empty"></div>
           <p class="login_form_right_p">Password</p>
-          <input class="login_form_input" type="text" id="password" v-model="user.userPwd" name="userPassword" @keyup.enter="confirm"/>
+          <input
+            class="login_form_input"
+            type="text"
+            id="password"
+            v-model="user.userPwd"
+            name="userPassword"
+            @keyup.enter="confirm"
+          />
         </form>
-        <button class="login_form_loginBtn" @click="confirm" @keyup.enter="confirm">Login</button>
+        <button
+          class="login_form_loginBtn"
+          @click="confirm"
+          @keyup.enter="confirm"
+        >
+          Login
+        </button>
         <div class="login_form_info">
           <p class="login_form_info_p">
             저희 사이트에 처음이신가요?&nbsp;&nbsp;&nbsp;
@@ -35,28 +55,26 @@
 </template>
 
 <script>
-import { mapMutations,mapState, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 
-const visibleStore = "visibleStore";
-const memberStore= "memberStore";
+const memberStore = "memberStore";
 
 export default {
   name: "LoginForm",
 
-  data(){
-    return{
-      user:{
-        userId:null,
-        userPwd:null,
+  data() {
+    return {
+      user: {
+        userId: null,
+        userPwd: null,
       },
     };
   },
 
-  computed:{
-    ...mapState(memberStore,["isLogin","isLoginError","userInfo"]),
+  computed: {
+    ...mapState(memberStore, ["isLogin", "isLoginError", "userInfo"]),
   },
   methods: {
-    ...mapMutations(visibleStore, ["SET_IS_VIS"]),
     ...mapActions(memberStore, ["userConfirm", "getUserInfo"]),
     async confirm() {
       console.log("in login form");

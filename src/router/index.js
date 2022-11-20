@@ -33,6 +33,11 @@ const routes = [
         name: "joinform",
         component: () => import("@/components/Member/JoinForm"),
       },
+      {
+        path: "mypageform",
+        name: "mypageform",
+        component: () => import("@/components/Member/MyPageForm"),
+      },
     ],
   },
 

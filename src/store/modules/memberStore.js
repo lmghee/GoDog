@@ -1,8 +1,13 @@
-import { join } from "@/api/member";
-
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { login, findById, tokenRegeneration, logout } from "@/api/member";
+import {
+  login,
+  findById,
+  tokenRegeneration,
+  logout,
+  infoChange,
+  join,
+} from "@/api/member";
 
 const memberStore = {
   namespaced: true,
@@ -51,6 +56,24 @@ const memberStore = {
         }
       );
     },
+    async userInfoChange({ commit }, user) {
+      console.log(commit);
+      console.log(user);
+      await infoChange(
+        user,
+        ({ data }) => {
+          if (data == "success") {
+            console.log(this.$store);
+            commit("SET_USER_INFO", data.userInfo);
+            alert("회원정보가 수정 되었습니다!");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+
     async userConfirm({ commit }, user) {
       console.log("userconfirm");
       console.log(user);
@@ -86,6 +109,8 @@ const memberStore = {
         ({ data }) => {
           console.log(data.message);
           if (data.message === "success") {
+            console.log(data.userInfo);
+            console.log("이부분확인!!!!!!!!!!!!!!!!!!");
             commit("SET_USER_INFO", data.userInfo);
             // console.log("3. getUserInfo data >> ", data);
           } else {

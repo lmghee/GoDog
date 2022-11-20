@@ -12,10 +12,11 @@
         <button class="login_form_delete_btn">x</button>
       </router-link>
       <div class="login_form_right_inner_container">
-        <h1 class="login_form_right_title">회원가입</h1>
+        <h1 class="login_form_right_title">회원정보수정</h1>
         <form class="join_form">
           <p class="login_form_right_p">ID</p>
           <input
+            readonly
             class="login_form_input"
             v-model="user.userId"
             @keyup.enter="confirm"
@@ -38,44 +39,51 @@
           />
           <div class="join_form_empty"></div>
 
-          <p class="login_form_right_p"></p>
+          <p class="login_form_right_p">Email</p>
           <input
             class="login_form_input"
-            v-model="user.userEmail"
             @keyup.enter="confirm"
+            v-model="user.userEmail"
           />
           <div class="join_form_empty"></div>
         </form>
-        <button class="login_form_loginBtn" @click="confirm">Join</button>
+        <button class="login_form_loginBtn" @click="confirm">Revise</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 const memberStore = "memberStore";
 
 export default {
-  name: "joinForm",
+  name: "myPageForm",
 
   data() {
     return {
       user: {
-        userId: null,
-        userPwd: null,
-        userName: null,
-        userEmail: null,
+        userId: this.$store.state.memberStore.userInfo.userId,
+        userPwd: this.$store.state.memberStore.userInfo.userPwd,
+        userName: this.$store.state.memberStore.userInfo.userName,
+        userEmail: this.$store.state.memberStore.userInfo.userEmail,
       },
     };
   },
 
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
+
   methods: {
-    ...mapActions(memberStore, ["userJoin"]),
+    ...mapActions(memberStore, ["userInfoChange"]),
 
     async confirm() {
-      await this.userJoin(this.user);
+      console.log(this.$store.state.memberStore.userInfo.userId);
+      console.log(this.user);
+      console.log("이부분!!!");
+      await this.userInfoChange(this.user);
       this.$router.push({ name: "main" });
     },
   },
