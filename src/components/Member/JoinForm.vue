@@ -34,11 +34,7 @@
             @keyup.enter="confirm"
           />
 
-<<<<<<< HEAD
-          <p class="login_form_right_p"></p>
-=======
           <p class="join_form_right_p">Email</p>
->>>>>>> 42555c6fe9842a7f20208c48466abdbddae55a41
           <input
             class="login_form_input"
             v-model="user.userEmail"
