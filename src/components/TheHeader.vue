@@ -3,54 +3,58 @@
     <router-link to="/">
       <img src="@/assets/img/logo.png" class="logoImg" />
     </router-link>
+
+    <div class="header_menu">
+      <router-link to="/map/travelmap">
+        <p class="header_menu_p">관광지도</p>
+      </router-link>
+      <router-link to="/board">
+        <p class="header_menu_p">게시판</p>
+      </router-link>
+    </div>
+
     <div class="header_btns">
-
-
       <div v-if="userInfo">
-          <button class="header_btn" @click="clickLogout">로그아웃</button>
-          <router-link to="/member/mypageform">
-            <button class="header_btn">마이페이지</button>
-          </router-link>
-        </div>
-        <div v-else>
-          <router-link to="/member/loginform">
+        <button class="header_btn" @click="clickLogout">로그아웃</button>
+        <router-link to="/member/mypageform">
+          <button class="header_btn">마이페이지</button>
+        </router-link>
+      </div>
+      <div v-else>
+        <router-link to="/member/loginform">
           <button class="header_btn">로그인</button>
-          </router-link>
-          <router-link to="/member/joinform">
+        </router-link>
+        <router-link to="/member/joinform">
           <button class="header_btn">회원가입</button>
-          </router-link>
-        </div>
+        </router-link>
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
-
 import { mapState, mapGetters, mapActions } from "vuex";
 
 const memberStore = "memberStore";
 
-
 export default {
   name: "TheHeader",
   data() {
-    return {
-      
-    };
+    return {};
   },
-  computed:{
+  computed: {
     ...mapState(memberStore, ["isLogin", "userInfo"]),
     ...mapGetters(["checkUserInfo"]),
   },
   methods: {
     ...mapActions(memberStore, ["userLogout"]),
-    clickLogout(){
+    clickLogout() {
       console.log(this.userInfo.userId);
       this.userLogout(this.userInfo.userId);
       sessionStorage.removeItem("access-token");
       sessionStorage.removeItem("refresh-token");
       if (this.$route.path != "/") this.$router.push({ name: "main" });
-    }
+    },
   },
 };
 </script>

@@ -5,20 +5,37 @@
   position: fixed;
   top: 0;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header_menu {
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.header_menu_p {
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  margin-right: 20px;
+  transition: 0.3s ease-in;
+}
+
+.header_menu_p:hover {
+  transform: skew(-30deg);
 }
 
 .logoImg {
   width: 180px;
   height: 60px;
+  margin-left: 20px;
 }
 
 .header_btns {
-  width: 400px;
   height: 100px;
-  position: fixed;
-  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;

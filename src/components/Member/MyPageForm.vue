@@ -47,7 +47,9 @@
           />
           <div class="join_form_empty"></div>
         </form>
-        <button class="login_form_loginBtn" @click="confirm">Revise</button>
+        <button class="login_form_loginBtn marginTop" @click="confirm">
+          Revise
+        </button>
       </div>
     </div>
   </div>

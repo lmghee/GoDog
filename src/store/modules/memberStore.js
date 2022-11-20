@@ -37,6 +37,8 @@ const memberStore = {
     },
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
+      console.log(userInfo);
+      console.log("여기에요 여기!!!!!!!!!");
       state.userInfo = userInfo;
     },
   },
@@ -63,8 +65,7 @@ const memberStore = {
         user,
         ({ data }) => {
           if (data == "success") {
-            console.log(this.$store);
-            commit("SET_USER_INFO", data.userInfo);
+            commit("SET_USER_INFO", user);
             alert("회원정보가 수정 되었습니다!");
           }
         },

@@ -20,12 +20,15 @@
             v-model="user.userId"
             @keyup.enter="confirm"
           />
+          <div class="join_form_empty"></div>
+
           <p class="join_form_right_p">Password</p>
           <input
             class="login_form_input"
             v-model="user.userPwd"
             @keyup.enter="confirm"
           />
+          <div class="join_form_empty"></div>
 
           <p class="join_form_right_p">Name</p>
           <input
@@ -33,6 +36,7 @@
             v-model="user.userName"
             @keyup.enter="confirm"
           />
+          <div class="join_form_empty"></div>
 
           <p class="join_form_right_p">Email</p>
           <input
