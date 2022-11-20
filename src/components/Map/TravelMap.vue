@@ -109,14 +109,14 @@ export default {
       if (this.selGugun === "구군선택") {
         this.initList();
       } else {
-        await api
-          .get(`/map/travellist?areaName=${this.selGugun}`)
-          .then((response) => (this.selList = response.data.regionlist));
         this.setPc01Markers(null);
         this.setPc02Markers(null);
         this.setPc03Markers(null);
         this.setPc04Markers(null);
         this.setPc05Markers(null);
+        await api
+          .get(`/map/travellist?areaName=${this.selGugun}`)
+          .then((response) => (this.selList = response.data.regionlist));
         this.displayMarker2();
       }
     },
@@ -175,24 +175,29 @@ export default {
           if (i === 0) {
             var latitude = this.pc01[j].latitude;
             var longitude = this.pc01[j].longitude;
+            var title = this.pc01[j].title;
           } else if (i === 1) {
             latitude = this.pc02[j].latitude;
             longitude = this.pc02[j].longitude;
+            title = this.pc02[j].title;
           } else if (i === 2) {
             latitude = this.pc03[j].latitude;
             longitude = this.pc03[j].longitude;
+            title = this.pc03[j].title;
           } else if (i === 3) {
             latitude = this.pc04[j].latitude;
             longitude = this.pc04[j].longitude;
+            title = this.pc04[j].title;
           } else if (i === 4) {
             latitude = this.pc05[j].latitude;
             longitude = this.pc05[j].longitude;
+            title = this.pc05[j].title;
           }
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
             map: this.map, //마커를 표시할 지도
             position: new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude)), // 마커를 표시할 위치
-            //   title: this.pc01location[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+            title: title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
             image: markerImage, // 마커 이미지
           });
 
@@ -242,7 +247,7 @@ export default {
         var marker = new kakao.maps.Marker({
           map: this.map, //마커를 표시할 지도
           position: new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude)), // 마커를 표시할 위치
-          //   title: this.pc01location[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+          title: this.selList[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
           image: markerImage, // 마커 이미지
         });
 
@@ -258,11 +263,6 @@ export default {
           this.pc05Makers.push(marker);
         }
       }
-      console.log(this.pc01Makers);
-      console.log(this.pc02Makers);
-      console.log(this.pc03Makers);
-      console.log(this.pc04Makers);
-      console.log(this.pc05Makers);
     },
     changeMarker(type) {
       if (type === "pc01") {
@@ -337,27 +337,27 @@ export default {
       }
     },
     setPc01Markers(map) {
-      for (var i = 0; i < this.pc01.length; i++) {
+      for (var i = 0; i < this.pc01Makers.length; i++) {
         this.pc01Makers[i].setMap(map);
       }
     },
     setPc02Markers(map) {
-      for (var i = 0; i < this.pc02.length; i++) {
+      for (var i = 0; i < this.pc02Makers.length; i++) {
         this.pc02Makers[i].setMap(map);
       }
     },
     setPc03Markers(map) {
-      for (var i = 0; i < this.pc03.length; i++) {
+      for (var i = 0; i < this.pc03Makers.length; i++) {
         this.pc03Makers[i].setMap(map);
       }
     },
     setPc04Markers(map) {
-      for (var i = 0; i < this.pc04.length; i++) {
+      for (var i = 0; i < this.pc04Makers.length; i++) {
         this.pc04Makers[i].setMap(map);
       }
     },
     setPc05Markers(map) {
-      for (var i = 0; i < this.pc05.length; i++) {
+      for (var i = 0; i < this.pc05Makers.length; i++) {
         this.pc05Makers[i].setMap(map);
       }
     },
