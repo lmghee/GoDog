@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import { login, findById, tokenRegeneration, logout, infoChange, join } from "@/api/member";
+import { login, findById, tokenRegeneration, logout, infoChange, join, userdelete } from "@/api/member";
 
 const memberStore = {
   namespaced: true,
@@ -60,6 +60,22 @@ const memberStore = {
           if (data == "success") {
             commit("SET_USER_INFO", user);
             alert("회원정보가 수정 되었습니다!");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+
+    async userDelete({ commit }, userId) {
+      console.log(commit);
+      await userdelete(
+        userId,
+        ({ data }) => {
+          if (data == "success") {
+            commit("SET_USER_INFO", null);
+            alert("탈퇴가 완료되었습니다!");
           }
         },
         (error) => {
