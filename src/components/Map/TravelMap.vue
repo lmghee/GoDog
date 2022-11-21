@@ -166,7 +166,6 @@ export default {
         // var level = this.map.getLevel();
         // console.log(level);
         // document.querySelector("#container").addEventListener("wheel", function () {
-        console.log(this.map);
       });
 
       this.displayMarker();
@@ -188,7 +187,6 @@ export default {
       return markerImage;
     },
     displayMarker() {
-      console.log(this.pc01);
       this.pc01Makers = [];
       this.pc02Makers = [];
       this.pc03Makers = [];

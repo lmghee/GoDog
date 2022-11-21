@@ -1,32 +1,89 @@
 <template>
-  <div class="container">
-    <TheHeader></TheHeader>
-    <div class="main_container">
-      <div class="main_container_back_ground">
-        <h1 class="main_container_title">Pets Are Family</h1>
-        <h4 class="main_container_sub_title">
-          Find the best Professional pet services near you
-        </h4>
-        <img src="@/assets/img/main.png" class="main_img" />
-      </div>
+  <v-container>
+    <div class="container-fluid px-0 mb-5">
+      <the-header></the-header>
+      <b-carousel
+        id="carousel-1"
+        v-model="slide"
+        :interval="4000"
+        controls
+        indicators
+        img-width="1024"
+        img-height="600"
+        style="text-shadow: 1px 1px 2px #333"
+        @sliding-start="onSlideStart"
+        @sliding-end="onSlideEnd"
+      >
+        <!-- Slides with img slot -->
+        <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
+        <b-carousel-slide>
+          <template #img>
+            <img class="w-100" width="1024" height="480" src="@/assets/img/carousel-1.jpg" alt="Image" />
+          </template>
+          <div class="carousel-caption">
+            <div class="container">
+              <div class="row justify-content-start">
+                <div class="col-lg-8 text-start">
+                  <p class="fs-4 text-white">Welcome to our tour</p>
+                  <h1 class="display-1 text-white mb-5 animated slideInRight">with Dog</h1>
+                  <a href="/map/travelmap" class="btn btn-warning rounded-pill py-3 px-5 animated slideInRight"
+                    >Explore More</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </b-carousel-slide>
+
+        <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+        <b-carousel-slide>
+          <template #img>
+            <img class="w-100" width="1024" height="480" src="@/assets/img/carousel-2.jpg" alt="Image" />
+          </template>
+          <div class="carousel-caption">
+            <div class="container">
+              <div class="row justify-content-end">
+                <div class="col-lg-8 text-end">
+                  <p class="fs-4 text-white">waiting for your reviews</p>
+                  <h1 class="display-1 text-white mb-5 animated slideInRight">about your trip</h1>
+                  <a href="/map/travelmap" class="btn btn-warning rounded-pill py-3 px-5 animated slideInRight"
+                    >Explore More</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </b-carousel-slide>
+      </b-carousel>
     </div>
-    <TheFooter></TheFooter>
-  </div>
+  </v-container>
 </template>
 
 <script>
-import TheHeader from "@/components/TheHeader.vue";
-import TheFooter from "@/components/TheFooter.vue";
+import TheHeader from "@/components/TheHeader";
 
 export default {
+  name: "MainView",
   components: {
     TheHeader,
-    TheFooter,
   },
-  name: "MainView",
+  data() {
+    return {
+      slide: 0,
+      sliding: null,
+    };
+  },
+  methods: {
+    onSlideStart() {
+      this.sliding = true;
+    },
+    onSlideEnd() {
+      this.sliding = false;
+    },
+  },
 };
 </script>
 
 <style>
-@import "@/assets/css/main.css";
+@import "@/assets/css/bootstrap.min.css";
 </style>
