@@ -59,8 +59,9 @@
 
 .login_form_right_title {
   font-size: 38px;
-  font-weight: 600;
+  font-weight: 500;
   margin: 30px;
+  font-family: "ONE-Mobile-POP";
 }
 
 .login_form {
@@ -81,6 +82,7 @@
   font-weight: 600;
   font-size: 16px;
   text-align: left;
+  font-family: "KyoboHand";
 }
 
 .login_form_empty {
@@ -160,6 +162,7 @@
   font-weight: 600;
   font-size: 14px;
   text-align: left;
+  font-family: "KyoboHand";
 }
 
 .join_form_right_title {
@@ -223,6 +226,7 @@
 
 .login_form_cofirm_message_title {
   font-size: 24px;
+  font-family: "NanumSquareNeo-Variable";
 }
 
 .login_form_line {
@@ -235,6 +239,7 @@
 .login_form_cofirm_message_sub_title {
   font-size: 20px;
   color: rgb(247, 49, 49);
+  font-family: "NanumSquareNeo-Variable";
 }
 
 .login_form_cofirm_message_btns {
@@ -261,4 +266,38 @@
 
 .red {
   background-color: rgb(247, 49, 49);
+}
+
+@font-face {
+  font-family: "sandol";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ONE-Mobile-POP";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "BMJUA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "KyoboHand";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }

@@ -52,6 +52,7 @@
   -moz-padding-start: calc(0.75rem - 3px);
   font-size: 1rem;
   font-weight: 400;
+  font-family: "NanumBarunpen";
   line-height: 1.5;
   color: #212529;
   background-color: #fff;
@@ -126,6 +127,9 @@
   --bs-btn-disabled-border-color: #0d6efd;
   --bs-gradient: none;
 }
+#list-btn {
+  font-family: "NanumBarunpen";
+}
 .category,
 .category * {
   margin: 0;
@@ -182,4 +186,25 @@
 }
 .category .ico_hospital {
   background-position: -10px -135px;
+}
+
+@font-face {
+  font-family: "LeferiPoint-WhiteObliqueA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumBarunpen";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }

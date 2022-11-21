@@ -82,5 +82,6 @@ export default {
 @import "@/assets/lib/animate/animate.min.css";
 @import "@/assets/lib/owlcarousel/assets/owl.carousel.min.css";
 @import "@/assets/lib/lightbox/css/lightbox.min.css";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");
 @import "@/assets/css/bootstrap.min.css";
 </style>

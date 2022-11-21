@@ -19,22 +19,8 @@
       </div>
     </div>
     <div id="mapwrap">
-      <div class="example-modal-window" v-show="false">
-        <p>버튼을 누르면 모달 대화 상자가 열립니다.</p>
-        <button @click="openModal">열기</button>
-
-        <!-- 컴포넌트 MyModal -->
-        <tour-content @close="closeModal" v-if="modal">
-          <!-- default 슬롯 콘텐츠 -->
-          <p>Vue.js Modal Window!</p>
-          <div><input v-model="message" /></div>
-          <!-- /default -->
-          <!-- footer 슬롯 콘텐츠 -->
-          <template slot="footer">
-            <button @click="doSend">제출</button>
-          </template>
-          <!-- /footer -->
-        </tour-content>
+      <div class="mb-2" v-show="false">
+        <b-button id="mymodal" @click="showMsgBoxOne">Simple msgBoxOk</b-button>
       </div>
       <div id="map"></div>
       <div class="category">
@@ -67,17 +53,16 @@
 
 <script>
 import { httpMake } from "@/api/index";
-import TourContent from "@/components/Map/TourContent";
 
 const api = httpMake();
 
 export default {
   name: "TrevelMap",
-  components: {
-    TourContent,
-  },
+  components: {},
   data() {
     return {
+      boxOne: "",
+      content: "",
       gugunList: [],
       pc01: [],
       pc02: [],
@@ -95,11 +80,12 @@ export default {
       selList: [],
       makerSet: [
         [27, 27, 10, -5, 36, 98],
-        [27, 27, 8, 15, 33, 90],
+        [27, 27, 8, 15, 33, 98],
         [27, 27, 4, 35, 30, 96],
         [27, 27, 4, 58, 30, 96],
         [27, 27, 4, 78, 30, 96],
       ],
+      level: null,
       modal: false,
       message: "",
     };
@@ -120,7 +106,7 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=5e9a56d7c451eb1a6c578c840da9773d&libraries=services";
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=5e9a56d7c451eb1a6c578c840da9773d&libraries=services,clusterer";
       document.head.appendChild(script);
     }
   },
@@ -157,17 +143,6 @@ export default {
         };
       this.map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-      var zoomControl = new kakao.maps.ZoomControl();
-      this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-      // 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-      kakao.maps.event.addListener(this.map, "zoom_changed", function () {
-        // 지도의 현재 레벨을 얻어옵니다
-        // var level = this.map.getLevel();
-        // console.log(level);
-        // document.querySelector("#container").addEventListener("wheel", function () {
-      });
-
       this.displayMarker();
     },
     async initList() {
@@ -187,6 +162,7 @@ export default {
       return markerImage;
     },
     displayMarker() {
+      console.log(this.pc01);
       this.pc01Makers = [];
       this.pc02Makers = [];
       this.pc03Makers = [];
@@ -199,6 +175,13 @@ export default {
       this.pcLength.push(this.pc05.length);
 
       var bounds = new kakao.maps.LatLngBounds();
+
+      // 마커 클러스터러를 생성합니다
+      let clusterer = new kakao.maps.MarkerClusterer({
+        map: this.map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 10, // 클러스터 할 최소 지도 레벨
+      });
 
       for (let i = 0; i < 5; i++) {
         var markerImageSrc = require("@/assets/img/category.png");
@@ -217,22 +200,32 @@ export default {
             var latitude = this.pc01[j].latitude;
             var longitude = this.pc01[j].longitude;
             var title = this.pc01[j].title;
+            var address = this.pc01[j].address;
+            var tel = this.pc01[j].tel;
           } else if (i === 1) {
             latitude = this.pc02[j].latitude;
             longitude = this.pc02[j].longitude;
             title = this.pc02[j].title;
+            address = this.pc02[j].address;
+            tel = this.pc02[j].tel;
           } else if (i === 2) {
             latitude = this.pc03[j].latitude;
             longitude = this.pc03[j].longitude;
             title = this.pc03[j].title;
+            address = this.pc03[j].address;
+            tel = this.pc03[j].tel;
           } else if (i === 3) {
             latitude = this.pc04[j].latitude;
             longitude = this.pc04[j].longitude;
             title = this.pc04[j].title;
+            address = this.pc04[j].address;
+            tel = this.pc04[j].tel;
           } else if (i === 4) {
             latitude = this.pc05[j].latitude;
             longitude = this.pc05[j].longitude;
             title = this.pc05[j].title;
+            address = this.pc05[j].address;
+            tel = this.pc05[j].tel;
           }
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
@@ -240,6 +233,13 @@ export default {
             position: new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude)), // 마커를 표시할 위치
             title: title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
             image: markerImage, // 마커 이미지
+            clickable: true,
+          });
+
+          kakao.maps.event.addListener(marker, "click", function () {
+            console.log(i + "클릭햇당");
+            this.content = "상세주소 : " + address + "\n 전화번호 : " + tel;
+            document.querySelector("#mymodal").click();
           });
 
           bounds.extend(new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
@@ -257,6 +257,11 @@ export default {
           }
         }
       }
+      clusterer.addMarkers(this.pc01Makers);
+      clusterer.addMarkers(this.pc02Makers);
+      clusterer.addMarkers(this.pc03Makers);
+      clusterer.addMarkers(this.pc04Makers);
+      clusterer.addMarkers(this.pc05Makers);
       this.map.setBounds(bounds);
     },
     displayMarker2() {
@@ -273,7 +278,11 @@ export default {
       console.log(this.selList);
 
       var bounds = new kakao.maps.LatLngBounds();
-
+      let clusterer = new kakao.maps.MarkerClusterer({
+        map: this.map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 10, // 클러스터 할 최소 지도 레벨
+      });
       for (let i = 0; i < this.selList.length; i++) {
         var num = this.selList[i].pccode.substring(3, 4) - 1;
         var markerImageSrc = require("@/assets/img/category.png");
@@ -313,6 +322,11 @@ export default {
         }
       }
 
+      clusterer.addMarkers(this.pc01Makers);
+      clusterer.addMarkers(this.pc02Makers);
+      clusterer.addMarkers(this.pc03Makers);
+      clusterer.addMarkers(this.pc04Makers);
+      clusterer.addMarkers(this.pc05Makers);
       this.map.setBounds(bounds);
     },
     changeMarker(type) {
@@ -412,20 +426,18 @@ export default {
         this.pc05Makers[i].setMap(map);
       }
     },
-    openModal() {
-      this.modal = true;
-    },
-    closeModal() {
-      this.modal = false;
-    },
-    doSend() {
-      if (this.message.length > 0) {
-        alert(this.message);
-        this.message = "";
-        this.closeModal();
-      } else {
-        alert("메시지를 입력해주세요.");
-      }
+    showMsgBoxOne() {
+      this.boxOne = "";
+      let temp = this.content;
+      console.log(temp);
+      this.$bvModal
+        .msgBoxOk("ssssssss")
+        .then((value) => {
+          this.boxOne = value;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

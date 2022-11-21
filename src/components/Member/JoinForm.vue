@@ -4,8 +4,8 @@
       <router-link to="/">
         <img src="@/assets/img/logo.png" class="logoImg2" />
       </router-link>
-      <p class="login_fomr_p">가자개가 추천하는 여행지로반려동물과</p>
-      <p class="login_fomr_p">더 아름답고소중한 추억을 만들어보세요</p>
+      <p class="login_fomr_p">가자개가 추천하는 여행지로 반려동물과</p>
+      <p class="login_fomr_p">더 아름답고 소중한 추억을 만들어보세요</p>
     </div>
     <div class="login_form_right_container">
       <router-link to="/">
@@ -15,35 +15,19 @@
         <h1 class="login_form_right_title">회원가입</h1>
         <form class="join_form">
           <p class="join_form_right_p">ID</p>
-          <input
-            class="login_form_input"
-            v-model="user.userId"
-            @keyup.enter="confirm"
-          />
+          <input class="login_form_input" v-model="user.userId" @keyup.enter="confirm" />
           <div class="join_form_empty"></div>
 
           <p class="join_form_right_p">Password</p>
-          <input
-            class="login_form_input"
-            v-model="user.userPwd"
-            @keyup.enter="confirm"
-          />
+          <input class="login_form_input" v-model="user.userPwd" @keyup.enter="confirm" />
           <div class="join_form_empty"></div>
 
           <p class="join_form_right_p">Name</p>
-          <input
-            class="login_form_input"
-            v-model="user.userName"
-            @keyup.enter="confirm"
-          />
+          <input class="login_form_input" v-model="user.userName" @keyup.enter="confirm" />
           <div class="join_form_empty"></div>
 
           <p class="join_form_right_p">Email</p>
-          <input
-            class="login_form_input"
-            v-model="user.userEmail"
-            @keyup.enter="confirm"
-          />
+          <input class="login_form_input" v-model="user.userEmail" @keyup.enter="confirm" />
         </form>
         <button class="join_form_joinBtn" @click="confirm">Join</button>
       </div>

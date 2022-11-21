@@ -3561,6 +3561,7 @@ fieldset:disabled .btn {
   display: block;
   padding: 0.5rem 1rem;
   color: #5b8c51;
+  font-family: "NanumSquareNeo-Variable";
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -10006,5 +10007,19 @@ fieldset:disabled .btn {
 #logoImg {
   width: 120px;
   height: 50px;
-  margin-left: 10px;
+  margin-left: 0px;
+}
+
+@font-face {
+  font-family: "GongGothicMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
