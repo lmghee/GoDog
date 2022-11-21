@@ -1,10 +1,6 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-<<<<<<< HEAD
 import { login, findById, tokenRegeneration, logout, infoChange, join, userdelete } from "@/api/member";
-=======
-import { login, findById, tokenRegeneration, logout, infoChange, join } from "@/api/member";
->>>>>>> 3cc1780bca12d5e122d82dd9ac0bc6998b486f4f
 
 const memberStore = {
   namespaced: true,

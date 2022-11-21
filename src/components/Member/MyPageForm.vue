@@ -40,15 +40,11 @@
           <input class="login_form_input" @keyup.enter="confirm" v-model="user.userEmail" />
           <div class="join_form_empty"></div>
         </form>
-<<<<<<< HEAD
 
         <div class="join_form_btns">
           <button class="login_form_loginBtn right" @click="confirm">Revise</button>
           <button class="login_form_loginBtn red" @click="userdelete">Delete</button>
         </div>
-=======
-        <button class="login_form_loginBtn marginTop" @click="confirm">Revise</button>
->>>>>>> 3cc1780bca12d5e122d82dd9ac0bc6998b486f4f
       </div>
     </div>
   </div>
