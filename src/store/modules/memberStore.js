@@ -1,13 +1,6 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import {
-  login,
-  findById,
-  tokenRegeneration,
-  logout,
-  infoChange,
-  join,
-} from "@/api/member";
+import { login, findById, tokenRegeneration, logout, infoChange, join, userdelete } from "@/api/member";
 
 const memberStore = {
   namespaced: true,
@@ -75,6 +68,22 @@ const memberStore = {
       );
     },
 
+    async userDelete({ commit }, userId) {
+      console.log(commit);
+      await userdelete(
+        userId,
+        ({ data }) => {
+          if (data == "success") {
+            commit("SET_USER_INFO", null);
+            alert("탈퇴가 완료되었습니다!");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+
     async userConfirm({ commit }, user) {
       console.log("userconfirm");
       console.log(user);
@@ -119,20 +128,14 @@ const memberStore = {
           }
         },
         async (error) => {
-          console.log(
-            "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
-            error.response.status
-          );
+          console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
           await dispatch("tokenRegeneration");
         }
       );
     },
     async tokenRegeneration({ commit, state }) {
-      console.log(
-        "토큰 재발급 >> 기존 토큰 정보 : {}",
-        sessionStorage.getItem("access-token")
-      );
+      console.log("토큰 재발급 >> 기존 토큰 정보 : {}", sessionStorage.getItem("access-token"));
       await tokenRegeneration(
         JSON.stringify(state.userInfo),
         ({ data }) => {

@@ -106,6 +106,8 @@ export default {
       this.selGugun = event.target.value;
     },
     async getTourList() {
+      console.log(this.map);
+      console.log("여기1");
       if (this.selGugun === "구군선택") {
         this.initList();
       } else {
