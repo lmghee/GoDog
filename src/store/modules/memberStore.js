@@ -1,13 +1,6 @@
 import jwtDecode from "jwt-decode";
 import router from "@/router";
-import {
-  login,
-  findById,
-  tokenRegeneration,
-  logout,
-  infoChange,
-  join,
-} from "@/api/member";
+import { login, findById, tokenRegeneration, logout, infoChange, join } from "@/api/member";
 
 const memberStore = {
   namespaced: true,
@@ -92,6 +85,7 @@ const memberStore = {
             sessionStorage.setItem("access-token", accessToken);
             sessionStorage.setItem("refresh-token", refreshToken);
           } else {
+            alert("아이디 혹은 비밀번호를 다시 확인해주세요.");
             commit("SET_IS_LOGIN", false);
             commit("SET_IS_LOGIN_ERROR", true);
             commit("SET_IS_VALID_TOKEN", false);
@@ -119,20 +113,14 @@ const memberStore = {
           }
         },
         async (error) => {
-          console.log(
-            "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
-            error.response.status
-          );
+          console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
           await dispatch("tokenRegeneration");
         }
       );
     },
     async tokenRegeneration({ commit, state }) {
-      console.log(
-        "토큰 재발급 >> 기존 토큰 정보 : {}",
-        sessionStorage.getItem("access-token")
-      );
+      console.log("토큰 재발급 >> 기존 토큰 정보 : {}", sessionStorage.getItem("access-token"));
       await tokenRegeneration(
         JSON.stringify(state.userInfo),
         ({ data }) => {
@@ -149,18 +137,19 @@ const memberStore = {
             console.log("갱신 실패");
             // 다시 로그인 전 DB에 저장된 RefreshToken 제거.
             await logout(
-              state.userInfo.userid,
+              state.userInfo.userId,
               ({ data }) => {
+                console.log(state.userInfo.userId);
                 if (data.message === "success") {
                   console.log("리프레시 토큰 제거 성공");
                 } else {
                   console.log("리프레시 토큰 제거 실패");
                 }
-                alert("RefreshToken 기간 만료!!! 다시 로그인해 주세요.");
+                alert("세션이 만료되었습니다. 다시 로그인 해 주세요.");
                 commit("SET_IS_LOGIN", false);
                 commit("SET_USER_INFO", null);
                 commit("SET_IS_VALID_TOKEN", false);
-                router.push({ name: "login" });
+                router.push({ name: "loginform" });
               },
               (error) => {
                 console.log(error);
