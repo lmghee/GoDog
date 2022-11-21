@@ -12,44 +12,25 @@
         <button class="login_form_delete_btn">x</button>
       </router-link>
       <div class="login_form_right_inner_container">
-        <h1 class="login_form_right_title">회원정보수정</h1>
+        <h1 class="login_form_right_title">회원 정보</h1>
         <form class="join_form">
           <p class="login_form_right_p">ID</p>
-          <input
-            readonly
-            class="login_form_input"
-            v-model="user.userId"
-            @keyup.enter="confirm"
-          />
+          <input readonly class="login_form_input" v-model="user.userId" @keyup.enter="confirm" />
           <div class="join_form_empty"></div>
 
           <p class="login_form_right_p">Password</p>
-          <input
-            class="login_form_input"
-            v-model="user.userPwd"
-            @keyup.enter="confirm"
-          />
+          <input class="login_form_input" v-model="user.userPwd" @keyup.enter="confirm" />
           <div class="join_form_empty"></div>
 
           <p class="login_form_right_p">Name</p>
-          <input
-            class="login_form_input"
-            v-model="user.userName"
-            @keyup.enter="confirm"
-          />
+          <input class="login_form_input" v-model="user.userName" @keyup.enter="confirm" />
           <div class="join_form_empty"></div>
 
           <p class="login_form_right_p">Email</p>
-          <input
-            class="login_form_input"
-            @keyup.enter="confirm"
-            v-model="user.userEmail"
-          />
+          <input class="login_form_input" @keyup.enter="confirm" v-model="user.userEmail" />
           <div class="join_form_empty"></div>
         </form>
-        <button class="login_form_loginBtn marginTop" @click="confirm">
-          Revise
-        </button>
+        <button class="login_form_loginBtn marginTop" @click="confirm">Revise</button>
       </div>
     </div>
   </div>
