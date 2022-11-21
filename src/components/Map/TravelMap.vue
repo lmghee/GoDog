@@ -19,6 +19,23 @@
       </div>
     </div>
     <div id="mapwrap">
+      <div class="example-modal-window" v-show="false">
+        <p>버튼을 누르면 모달 대화 상자가 열립니다.</p>
+        <button @click="openModal">열기</button>
+
+        <!-- 컴포넌트 MyModal -->
+        <tour-content @close="closeModal" v-if="modal">
+          <!-- default 슬롯 콘텐츠 -->
+          <p>Vue.js Modal Window!</p>
+          <div><input v-model="message" /></div>
+          <!-- /default -->
+          <!-- footer 슬롯 콘텐츠 -->
+          <template slot="footer">
+            <button @click="doSend">제출</button>
+          </template>
+          <!-- /footer -->
+        </tour-content>
+      </div>
       <div id="map"></div>
       <div class="category">
         <ul>
@@ -50,11 +67,15 @@
 
 <script>
 import { httpMake } from "@/api/index";
+import TourContent from "@/components/Map/TourContent";
 
 const api = httpMake();
 
 export default {
   name: "TrevelMap",
+  components: {
+    TourContent,
+  },
   data() {
     return {
       gugunList: [],
@@ -79,6 +100,8 @@ export default {
         [27, 27, 4, 58, 30, 96],
         [27, 27, 4, 78, 30, 96],
       ],
+      modal: false,
+      message: "",
     };
   },
   created() {
@@ -90,6 +113,7 @@ export default {
   },
   mounted() {
     if (window.kakao && window.kakao.maps) {
+      this.$router.go();
       this.initMap();
     } else {
       const script = document.createElement("script");
@@ -106,8 +130,11 @@ export default {
       this.selGugun = event.target.value;
     },
     async getTourList() {
-      console.log(this.map);
-      console.log("여기1");
+      document.getElementById("coffeeMenu").className = "";
+      document.getElementById("houseMenu").className = "";
+      document.getElementById("tourMenu").className = "";
+      document.getElementById("actMenu").className = "";
+      document.getElementById("hospitalMenu").className = "";
       if (this.selGugun === "구군선택") {
         this.initList();
       } else {
@@ -385,6 +412,21 @@ export default {
     setPc05Markers(map) {
       for (var i = 0; i < this.pc05Makers.length; i++) {
         this.pc05Makers[i].setMap(map);
+      }
+    },
+    openModal() {
+      this.modal = true;
+    },
+    closeModal() {
+      this.modal = false;
+    },
+    doSend() {
+      if (this.message.length > 0) {
+        alert(this.message);
+        this.message = "";
+        this.closeModal();
+      } else {
+        alert("메시지를 입력해주세요.");
       }
     },
   },

@@ -22,7 +22,7 @@
         <button class="login_form_delete_btn">x</button>
       </router-link>
       <div class="login_form_right_inner_container">
-        <h1 class="login_form_right_title">회원정보수정</h1>
+        <h1 class="login_form_right_title">회원 정보</h1>
         <form class="join_form">
           <p class="login_form_right_p">ID</p>
           <input readonly class="login_form_input" v-model="user.userId" @keyup.enter="confirm" />
@@ -40,11 +40,15 @@
           <input class="login_form_input" @keyup.enter="confirm" v-model="user.userEmail" />
           <div class="join_form_empty"></div>
         </form>
+<<<<<<< HEAD
 
         <div class="join_form_btns">
           <button class="login_form_loginBtn right" @click="confirm">Revise</button>
           <button class="login_form_loginBtn red" @click="userdelete">Delete</button>
         </div>
+=======
+        <button class="login_form_loginBtn marginTop" @click="confirm">Revise</button>
+>>>>>>> 3cc1780bca12d5e122d82dd9ac0bc6998b486f4f
       </div>
     </div>
   </div>
