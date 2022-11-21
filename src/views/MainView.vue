@@ -26,8 +26,8 @@
                 <div class="col-lg-8 text-start">
                   <p class="fs-4 text-white">Welcome to our tour</p>
                   <h1 class="display-1 text-white mb-5 animated slideInRight">with Dog</h1>
-                  <a href="/map/travelmap" class="btn btn-warning rounded-pill py-3 px-5 animated slideInRight"
-                    >Explore More</a
+                  <router-link to="/map/travelmap" class="btn btn-warning rounded-pill py-3 px-5 animated slideInRight">
+                    >Explore More</router-link
                   >
                 </div>
               </div>
@@ -46,8 +46,8 @@
                 <div class="col-lg-8 text-end">
                   <p class="fs-4 text-white">waiting for your reviews</p>
                   <h1 class="display-1 text-white mb-5 animated slideInRight">about your trip</h1>
-                  <a href="/map/travelmap" class="btn btn-warning rounded-pill py-3 px-5 animated slideInRight"
-                    >Explore More</a
+                  <router-link to="/map/travelmap" class="btn btn-warning rounded-pill py-3 px-5 animated slideInRight"
+                    >Explore More</router-link
                   >
                 </div>
               </div>
