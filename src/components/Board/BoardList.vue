@@ -3,7 +3,10 @@
     <div class="card recent-sales overflow-auto">
       <div class="card-body">
         <h5 class="card-title">Review <span>| Today </span></h5>
-        <b-button pill variant="info" class="btn-write" @click="moveWrite()">글쓰기</b-button>
+        <v-btn class="ma-2" outlined small fab color="#1865c9" @click="moveWrite()">
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <!-- <b-button pill variant="info" class="btn-write" @click="moveWrite()">글쓰기</b-button> -->
 
         <table class="table table-borderless datatable">
           <thead>
