@@ -32,7 +32,8 @@
           </div>
           <template #modal-footer="{ cancel, hide }">
             <!-- Emulate built in modal footer ok and cancel button actions -->
-            <b-button size="sm" variant="danger" @click="cancel()"> 찜하기 </b-button>
+            <v-btn icon color="#e02b52" @click="cancel()"><v-icon>mdi-heart</v-icon></v-btn>
+            <!-- <b-button size="sm" variant="danger" @click="cancel()"> 찜하기 </b-button> -->
             <!-- Button with custom close trigger value -->
             <b-button size="sm" variant="outline-secondary" @click="hide('forget')"> 닫기 </b-button>
           </template>
