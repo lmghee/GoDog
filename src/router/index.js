@@ -39,6 +39,13 @@ const routes = [
     path: "/board",
     name: "board",
     component: BoradView,
+    children: [
+      {
+        path: "boardcontent",
+        name: "boardcontent",
+        component: () => import("@/components/BoardContent"),
+      },
+    ],
   },
   {
     path: "/member",

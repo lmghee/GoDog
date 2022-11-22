@@ -14,8 +14,8 @@
       <router-link to="/">
         <img src="@/assets/img/logo.png" class="logoImg2" />
       </router-link>
-      <p class="login_fomr_p">가자개가 추천하는 여행지로반려동물과</p>
-      <p class="login_fomr_p">더 아름답고소중한 추억을 만들어보세요</p>
+      <p class="login_fomr_p">가자개가 추천하는 여행지로 반려동물과</p>
+      <p class="login_fomr_p">더 아름답고 소중한 추억을 만들어보세요</p>
     </div>
     <div class="login_form_right_container">
       <router-link to="/">

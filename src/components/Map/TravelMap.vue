@@ -19,22 +19,24 @@
       </div>
     </div>
     <div id="mapwrap">
-      <div class="example-modal-window" v-show="false">
-        <p>버튼을 누르면 모달 대화 상자가 열립니다.</p>
-        <button @click="openModal">열기</button>
-
-        <!-- 컴포넌트 MyModal -->
-        <tour-content @close="closeModal" v-if="modal">
-          <!-- default 슬롯 콘텐츠 -->
-          <p>Vue.js Modal Window!</p>
-          <div><input v-model="message" /></div>
-          <!-- /default -->
-          <!-- footer 슬롯 콘텐츠 -->
-          <template slot="footer">
-            <button @click="doSend">제출</button>
+      <!-- <div class="mb-2" v-show="false">
+        <b-button id="mymodal" @click="showMsgBoxOne">Simple msgBoxOk</b-button>
+      </div> -->
+      <div v-show="false">
+        <b-button id="mymodal" @click="$bvModal.show('bv-modal-example')">Open Modal</b-button>
+        <b-modal id="bv-modal-example">
+          <template #modal-title> {{ title }} </template>
+          <div class="d-block text-center">
+            <h3>상세주소 : {{ address }}</h3>
+            <h3>전화번호 : {{ tel }}</h3>
+          </div>
+          <template #modal-footer="{ cancel, hide }">
+            <!-- Emulate built in modal footer ok and cancel button actions -->
+            <b-button size="sm" variant="danger" @click="cancel()"> 찜하기 </b-button>
+            <!-- Button with custom close trigger value -->
+            <b-button size="sm" variant="outline-secondary" @click="hide('forget')"> 닫기 </b-button>
           </template>
-          <!-- /footer -->
-        </tour-content>
+        </b-modal>
       </div>
       <div id="map"></div>
       <div class="category">
@@ -67,15 +69,12 @@
 
 <script>
 import { httpMake } from "@/api/index";
-import TourContent from "@/components/Map/TourContent";
 
 const api = httpMake();
 
 export default {
   name: "TrevelMap",
-  components: {
-    TourContent,
-  },
+  components: {},
   data() {
     return {
       gugunList: [],
@@ -91,17 +90,17 @@ export default {
       pc05Makers: [],
       pcLength: [],
       selGugun: null,
-      isSelect: false,
       selList: [],
       makerSet: [
         [27, 27, 10, -5, 36, 98],
-        [27, 27, 8, 15, 33, 90],
+        [27, 27, 8, 15, 33, 98],
         [27, 27, 4, 35, 30, 96],
         [27, 27, 4, 58, 30, 96],
         [27, 27, 4, 78, 30, 96],
       ],
-      modal: false,
-      message: "",
+      title: "",
+      address: "",
+      tel: "",
     };
   },
   created() {
@@ -120,7 +119,7 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=5e9a56d7c451eb1a6c578c840da9773d&libraries=services";
+        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=5e9a56d7c451eb1a6c578c840da9773d&libraries=services,clusterer";
       document.head.appendChild(script);
     }
   },
@@ -157,17 +156,6 @@ export default {
         };
       this.map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-      var zoomControl = new kakao.maps.ZoomControl();
-      this.map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-      // 지도가 확대 또는 축소되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-      kakao.maps.event.addListener(this.map, "zoom_changed", function () {
-        // 지도의 현재 레벨을 얻어옵니다
-        // var level = this.map.getLevel();
-        // console.log(level);
-        // document.querySelector("#container").addEventListener("wheel", function () {
-      });
-
       this.displayMarker();
     },
     async initList() {
@@ -200,6 +188,13 @@ export default {
 
       var bounds = new kakao.maps.LatLngBounds();
 
+      // 마커 클러스터러를 생성합니다
+      let clusterer = new kakao.maps.MarkerClusterer({
+        map: this.map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 10, // 클러스터 할 최소 지도 레벨
+      });
+
       for (let i = 0; i < 5; i++) {
         var markerImageSrc = require("@/assets/img/category.png");
 
@@ -213,26 +208,41 @@ export default {
         var markerImage = this.createMarkerImage(markerImageSrc, imageSize, imageOptions);
 
         for (let j = 0; j < this.pcLength[i]; j++) {
+          let latitude;
+          let longitude;
+          let title;
+          let address;
+          let tel;
           if (i === 0) {
-            var latitude = this.pc01[j].latitude;
-            var longitude = this.pc01[j].longitude;
-            var title = this.pc01[j].title;
+            latitude = this.pc01[j].latitude;
+            longitude = this.pc01[j].longitude;
+            title = this.pc01[j].title;
+            address = this.pc01[j].address;
+            tel = this.pc01[j].tel;
           } else if (i === 1) {
             latitude = this.pc02[j].latitude;
             longitude = this.pc02[j].longitude;
             title = this.pc02[j].title;
+            address = this.pc02[j].address;
+            tel = this.pc02[j].tel;
           } else if (i === 2) {
             latitude = this.pc03[j].latitude;
             longitude = this.pc03[j].longitude;
             title = this.pc03[j].title;
+            address = this.pc03[j].address;
+            tel = this.pc03[j].tel;
           } else if (i === 3) {
             latitude = this.pc04[j].latitude;
             longitude = this.pc04[j].longitude;
             title = this.pc04[j].title;
+            address = this.pc04[j].address;
+            tel = this.pc04[j].tel;
           } else if (i === 4) {
             latitude = this.pc05[j].latitude;
             longitude = this.pc05[j].longitude;
             title = this.pc05[j].title;
+            address = this.pc05[j].address;
+            tel = this.pc05[j].tel;
           }
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
@@ -240,7 +250,14 @@ export default {
             position: new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude)), // 마커를 표시할 위치
             title: title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
             image: markerImage, // 마커 이미지
-            // clickable: true,
+            clickable: true,
+          });
+
+          kakao.maps.event.addListener(marker, "click", function () {
+            this.title = title;
+            this.address = address;
+            this.tel = tel;
+            document.querySelector("#mymodal").click();
           });
           // kakao.maps.event.addListener(marker, "click", function () {
           // 마커 위에 인포윈도우를 표시합니다
@@ -261,7 +278,17 @@ export default {
           }
         }
       }
+      clusterer.addMarkers(this.pc01Makers);
+      clusterer.addMarkers(this.pc02Makers);
+      clusterer.addMarkers(this.pc03Makers);
+      clusterer.addMarkers(this.pc04Makers);
+      clusterer.addMarkers(this.pc05Makers);
       this.map.setBounds(bounds);
+    },
+    returnTitle(title) {
+      console.log("여기지롱");
+      this.title = title;
+      return this.title;
     },
     displayMarker2() {
       this.pc01 = [];
@@ -277,7 +304,11 @@ export default {
       console.log(this.selList);
 
       var bounds = new kakao.maps.LatLngBounds();
-
+      let clusterer = new kakao.maps.MarkerClusterer({
+        map: this.map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 10, // 클러스터 할 최소 지도 레벨
+      });
       for (let i = 0; i < this.selList.length; i++) {
         var num = this.selList[i].pccode.substring(3, 4) - 1;
         var markerImageSrc = require("@/assets/img/category.png");
@@ -317,6 +348,11 @@ export default {
         }
       }
 
+      clusterer.addMarkers(this.pc01Makers);
+      clusterer.addMarkers(this.pc02Makers);
+      clusterer.addMarkers(this.pc03Makers);
+      clusterer.addMarkers(this.pc04Makers);
+      clusterer.addMarkers(this.pc05Makers);
       this.map.setBounds(bounds);
     },
     changeMarker(type) {
@@ -414,21 +450,6 @@ export default {
     setPc05Markers(map) {
       for (var i = 0; i < this.pc05Makers.length; i++) {
         this.pc05Makers[i].setMap(map);
-      }
-    },
-    openModal() {
-      this.modal = true;
-    },
-    closeModal() {
-      this.modal = false;
-    },
-    doSend() {
-      if (this.message.length > 0) {
-        alert(this.message);
-        this.message = "";
-        this.closeModal();
-      } else {
-        alert("메시지를 입력해주세요.");
       }
     },
   },

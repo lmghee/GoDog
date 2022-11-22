@@ -4,8 +4,8 @@
       <router-link to="/">
         <img src="@/assets/img/logo.png" class="logoImg2" />
       </router-link>
-      <p class="login_fomr_p">가자개가 추천하는 여행지로반려동물과</p>
-      <p class="login_fomr_p">더 아름답고소중한 추억을 만들어보세요</p>
+      <p class="login_fomr_p">가자개가 추천하는 여행지로 반려동물과</p>
+      <p class="login_fomr_p">더 아름답고 소중한 추억을 만들어보세요</p>
     </div>
     <div class="login_form_right_container">
       <router-link to="/">
@@ -34,17 +34,9 @@
             @keyup.enter="confirm"
           />
         </form>
-        <button
-          class="login_form_loginBtn"
-          @click="confirm"
-          @keyup.enter="confirm"
-        >
-          Login
-        </button>
+        <button class="login_form_loginBtn" @click="confirm" @keyup.enter="confirm">Login</button>
         <div class="login_form_info">
-          <p class="login_form_info_p">
-            저희 사이트에 처음이신가요?&nbsp;&nbsp;&nbsp;
-          </p>
+          <p class="login_form_info_p">저희 사이트에 처음이신가요?&nbsp;&nbsp;&nbsp;</p>
           <router-link to="/member/joinform">
             <p class="login_form_info_p2">가입하기</p>
           </router-link>
