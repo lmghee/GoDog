@@ -41,9 +41,9 @@ const routes = [
     component: BoradView,
     children: [
       {
-        path: "boardcontent",
-        name: "boardcontent",
-        component: () => import("@/components/BoardContent"),
+        path: "boardlist",
+        name: "boardlist",
+        component: () => import("@/components/Board/BoardList"),
       },
     ],
   },

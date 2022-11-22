@@ -46,7 +46,9 @@
                 <div class="col-lg-8 text-end">
                   <p class="fs-2 text-white">waiting for your reviews</p>
                   <h1 class="display-4 text-white mb-5 animated slideInRight">about your trip</h1>
-                  <router-link to="/board" class="btn btn-warning rounded-pill py-3 px-5 animated slideInRight"
+                  <router-link
+                    to="/board/boardlist"
+                    class="btn btn-warning rounded-pill py-3 px-5 animated slideInRight"
                     >Explore More</router-link
                   >
                 </div>
