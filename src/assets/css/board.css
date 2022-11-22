@@ -25,6 +25,8 @@ h4,
 h5,
 h6 {
   font-family: "Nunito", sans-serif;
+  display: inline-block;
+  margin-left: 25rem;
 }
 /* Card */
 .card {
@@ -170,8 +172,8 @@ h6 {
 }
 .row > * {
   flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
+  width: 50%;
+  max-width: 50%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-top: var(--bs-gutter-y);
@@ -179,4 +181,7 @@ h6 {
 
 .col {
   flex: 1 0 0%;
+}
+.btn-write {
+  margin-left: 25rem;
 }
