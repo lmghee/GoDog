@@ -1,16 +1,16 @@
 <template>
   <div class="col-12">
     <div class="card recent-sales overflow-auto">
-      <div class="card-body"><board-input-item type="register" /></div>
+      <div class="card-body"><board-input-item type="modify" /></div>
     </div>
   </div>
 </template>
 
 <script>
-import BoardInputItem from "@/components/Board/item/BoardInputItem";
+import BoardInputItem from "@/components/board/item/BoardInputItem";
 
 export default {
-  name: "BoardWrite",
+  name: "BoardModify",
   components: {
     BoardInputItem,
   },
