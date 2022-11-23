@@ -19,7 +19,7 @@
           no-body
         >
           <b-card-body class="text-left">
-            <div v-html="message"></div>
+            <div v-html="message" class="message-test"></div>
           </b-card-body>
         </b-card>
       </b-col>
