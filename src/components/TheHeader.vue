@@ -29,6 +29,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
           <router-link to="/map/travelmap" class="nav-item nav-link">관광지도</router-link>
+          <router-link to="/map/bookmarklist" class="nav-item nav-link" v-if="userInfo">관심지역</router-link>
           <router-link to="/board/boardlist" class="nav-item nav-link">게시판</router-link>
           <a href="#" class="nav-item nav-link active">About</a>
           <div v-if="userInfo"><button class="nav-item nav-link" @click="clickLogout">로그아웃</button></div>

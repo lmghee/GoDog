@@ -91,6 +91,11 @@ const routes = [
         name: "travelmap",
         component: () => import("@/components/Map/TravelMap"),
       },
+      {
+        path: "bookmarklist",
+        name: "bookmarklist",
+        component: () => import("@/components/Map/BookmarkList"),
+      },
     ],
   },
 ];

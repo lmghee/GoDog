@@ -18,6 +18,10 @@
         </button>
       </div>
     </div>
+    <LoadingSpinner v-if="isLoading"></LoadingSpinner>
+    <!-- <div class="spinner-div" v-if="isLoading">
+      <q-spinner-cube color="primary" size="5em" />
+    </div> -->
     <div id="mapwrap">
       <!-- <div class="mb-2" v-show="false">
         <b-button id="mymodal" @click="showMsgBoxOne">Simple msgBoxOk</b-button>
@@ -41,7 +45,7 @@
           </template>
         </b-modal>
       </div>
-      <div id="map"></div>
+      <div id="map" v-show="!isLoading"></div>
       <div class="category">
         <ul>
           <li id="coffeeMenu" @click="changeMarker('pc01')">
@@ -71,15 +75,21 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
+
 import { httpMake } from "@/api/index";
+import LoadingSpinner from "@/components/Map/LoadingSpinner.vue";
 
 const api = httpMake();
 
 export default {
   name: "TrevelMap",
-  components: {},
+  components: { LoadingSpinner },
   data() {
     return {
+      isLoading: true,
       gugunList: [],
       pc01: [],
       pc02: [],
@@ -104,6 +114,7 @@ export default {
       title: "",
       address: "",
       tel: "",
+      contentSeq: null,
     };
   },
   created() {
@@ -126,6 +137,9 @@ export default {
       document.head.appendChild(script);
     }
   },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   methods: {
     getLast(event) {
       console.log(event.target.value);
@@ -138,6 +152,7 @@ export default {
       document.getElementById("actMenu").className = "";
       document.getElementById("hospitalMenu").className = "";
       if (this.selGugun === "구군선택") {
+        this.isLoading = false;
         this.initList();
       } else {
         this.setPc01Markers(null);
@@ -171,6 +186,7 @@ export default {
         if (window.kakao && window.kakao.maps) {
           this.initMap();
         }
+        this.isLoading = false;
       });
     },
     createMarkerImage(src, size, options) {
@@ -183,6 +199,7 @@ export default {
       this.pc03Makers = [];
       this.pc04Makers = [];
       this.pc05Makers = [];
+      this.pcLength = [];
       this.pcLength.push(this.pc01.length);
       this.pcLength.push(this.pc02.length);
       this.pcLength.push(this.pc03.length);
@@ -216,36 +233,42 @@ export default {
           let title;
           let address;
           let tel;
+          let contentSeq;
           if (i === 0) {
             latitude = this.pc01[j].latitude;
             longitude = this.pc01[j].longitude;
             title = this.pc01[j].title;
             address = this.pc01[j].address;
             tel = this.pc01[j].tel;
+            contentSeq = this.pc01[j].contentSeq;
           } else if (i === 1) {
             latitude = this.pc02[j].latitude;
             longitude = this.pc02[j].longitude;
             title = this.pc02[j].title;
             address = this.pc02[j].address;
             tel = this.pc02[j].tel;
+            contentSeq = this.pc02[j].contentSeq;
           } else if (i === 2) {
             latitude = this.pc03[j].latitude;
             longitude = this.pc03[j].longitude;
             title = this.pc03[j].title;
             address = this.pc03[j].address;
             tel = this.pc03[j].tel;
+            contentSeq = this.pc03[j].contentSeq;
           } else if (i === 3) {
             latitude = this.pc04[j].latitude;
             longitude = this.pc04[j].longitude;
             title = this.pc04[j].title;
             address = this.pc04[j].address;
             tel = this.pc04[j].tel;
+            contentSeq = this.pc04[j].contentSeq;
           } else if (i === 4) {
             latitude = this.pc05[j].latitude;
             longitude = this.pc05[j].longitude;
             title = this.pc05[j].title;
             address = this.pc05[j].address;
             tel = this.pc05[j].tel;
+            contentSeq = this.pc05[j].contentSeq;
           }
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
@@ -260,13 +283,10 @@ export default {
             this.title = title;
             this.address = address;
             this.tel = tel;
+            this.contentSeq = contentSeq;
             document.querySelector("#mymodal").click();
             // document.getElementById("detail").innerHTML = "hello";
           });
-          // kakao.maps.event.addListener(marker, "click", function () {
-          // 마커 위에 인포윈도우를 표시합니다
-          // infowindow.open(map, marker);
-          // });
           bounds.extend(new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude)));
 
           if (i === 0) {
@@ -288,10 +308,6 @@ export default {
       clusterer.addMarkers(this.pc04Makers);
       clusterer.addMarkers(this.pc05Makers);
       this.map.setBounds(bounds);
-    },
-    returnTitle(title) {
-      this.title = title;
-      return this.title;
     },
     displayMarker2() {
       this.pc01 = [];
@@ -416,7 +432,6 @@ export default {
         this.setPc04Markers(this.map);
         this.setPc05Markers(null);
       } else if (type === "pc05") {
-        console.log(type);
         document.getElementById("coffeeMenu").className = "";
         document.getElementById("houseMenu").className = "";
         document.getElementById("tourMenu").className = "";
@@ -455,9 +470,26 @@ export default {
         this.pc05Makers[i].setMap(map);
       }
     },
-    addBookmark(cancel) {
-      console.log(this.title + ", " + this.address + ", " + this.tel);
-      cancel();
+    async addBookmark(cancel) {
+      if (this.$store.state.memberStore.userInfo === null) {
+        alert("로그인 후 이용 가능합니다.");
+        this.$router.push({ name: "loginform" });
+      } else {
+        let bookmarkDto = {
+          id: this.$store.state.memberStore.userInfo.userId,
+          contentSeq: this.contentSeq,
+        };
+        console.log(this.title + ", " + this.address + ", " + this.tel + ", " + bookmarkDto);
+        await api.post("/map/insertbk", bookmarkDto).then((response) => {
+          if (response.data === "success") {
+            alert("관심 지역으로 등록되었습니다.");
+          } else if (response.data === "fail") {
+            alert("이미 등록된 지역이거나 잠시 후에 다시 시도해 주십시오.");
+          }
+        });
+
+        cancel();
+      }
     },
   },
 };
