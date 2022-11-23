@@ -101,8 +101,9 @@ export default {
       this.moveList();
     },
     registArticle() {
+      console.log(this.article.userid);
       let param = {
-        userid: this.article.userid,
+        userId: this.article.userid,
         subject: this.article.subject,
         content: this.article.content,
       };
@@ -124,7 +125,7 @@ export default {
     modifyArticle() {
       let param = {
         articleno: this.article.articleno,
-        userid: this.article.userid,
+        userId: this.article.userid,
         subject: this.article.subject,
         content: this.article.content,
       };
