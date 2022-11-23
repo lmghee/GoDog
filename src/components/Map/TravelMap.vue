@@ -484,7 +484,7 @@ export default {
           if (response.data === "success") {
             alert("관심 지역으로 등록되었습니다.");
           } else if (response.data === "fail") {
-            alert("이미 등록된 지역이거나 잠시 후에 다시 시도해 주십시오.");
+            alert("이미 관심 지역으로 등록된 지역이거나 잠시 후에 다시 시도해 주십시오.");
           }
         });
 

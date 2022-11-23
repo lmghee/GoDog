@@ -43,7 +43,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { writeArticle, modifyArticle, getArticle } from "@/api/board";
+
+const memberStore = "memberStore";
 
 export default {
   name: "boardWrite",
@@ -51,7 +54,7 @@ export default {
     return {
       article: {
         articleno: 0,
-        userId: "",
+        userId: this.$store.state.memberStore.userInfo.userId,
         subject: "",
         content: "",
       },
@@ -60,6 +63,9 @@ export default {
   },
   props: {
     type: { type: String },
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
   created() {
     if (this.type === "modify") {
