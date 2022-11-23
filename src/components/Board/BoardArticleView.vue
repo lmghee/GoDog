@@ -4,7 +4,7 @@
       <b-col class="text-left">
         <b-button variant="primary" @click="moveList">목록</b-button>
       </b-col>
-      <b-col class="text-right" v-if="userInfo.userid === article.userid">
+      <b-col class="text-right" v-if="userInfo.userId === article.userId">
         <b-button variant="primary" size="m-2" @click="moveModifyArticle" class="mr-2">글수정</b-button>
         <b-button variant="danger" size="m-2" @click="deleteArticle">글삭제</b-button>
       </b-col>
