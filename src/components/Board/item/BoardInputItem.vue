@@ -6,7 +6,7 @@
           <b-form-input
             id="userid"
             :disabled="isUserid"
-            v-model="article.userid"
+            v-model="article.userId"
             type="text"
             required
             placeholder="작성자 입력..."
@@ -51,7 +51,7 @@ export default {
     return {
       article: {
         articleno: 0,
-        userid: "",
+        userId: "",
         subject: "",
         content: "",
       },
@@ -86,7 +86,7 @@ export default {
 
       let err = true;
       let msg = "";
-      !this.article.userid && ((msg = "작성자 입력해주세요"), (err = false), this.$refs.userid.focus());
+      !this.article.userId && ((msg = "작성자 입력해주세요"), (err = false), this.$refs.userId.focus());
       err && !this.article.subject && ((msg = "제목 입력해주세요"), (err = false), this.$refs.subject.focus());
       err && !this.article.content && ((msg = "내용 입력해주세요"), (err = false), this.$refs.content.focus());
 
@@ -101,9 +101,9 @@ export default {
       this.moveList();
     },
     registArticle() {
-      console.log(this.article.userid);
+      console.log(this.article.userId);
       let param = {
-        userId: this.article.userid,
+        userId: this.article.userId,
         subject: this.article.subject,
         content: this.article.content,
       };
@@ -125,7 +125,7 @@ export default {
     modifyArticle() {
       let param = {
         articleno: this.article.articleno,
-        userId: this.article.userid,
+        userId: this.article.userId,
         subject: this.article.subject,
         content: this.article.content,
       };

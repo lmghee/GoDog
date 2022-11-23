@@ -2,11 +2,11 @@
   <b-container class="bv-example-row mt-3">
     <b-row class="mb-1">
       <b-col class="text-left">
-        <b-button variant="outline-primary" @click="moveList">목록</b-button>
+        <b-button variant="primary" @click="moveList">목록</b-button>
       </b-col>
       <b-col class="text-right" v-if="userInfo.userid === article.userid">
-        <b-button variant="outline-info" size="sm" @click="moveModifyArticle" class="mr-2">글수정</b-button>
-        <b-button variant="outline-danger" size="sm" @click="deleteArticle">글삭제</b-button>
+        <b-button variant="primary" size="m-2" @click="moveModifyArticle" class="mr-2">글수정</b-button>
+        <b-button variant="danger" size="m-2" @click="deleteArticle">글삭제</b-button>
       </b-col>
     </b-row>
     <b-row class="mb-1">
@@ -82,6 +82,4 @@ export default {
 };
 </script>
 
-<style>
-@import "@/assets/css/board.css";
-</style>
+<style></style>
