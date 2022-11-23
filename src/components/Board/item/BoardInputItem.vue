@@ -158,6 +158,4 @@ export default {
 };
 </script>
 
-<style>
-@import "@/assets/css/board.css";
-</style>
+<style></style>
