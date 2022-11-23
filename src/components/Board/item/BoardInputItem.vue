@@ -10,6 +10,7 @@
             type="text"
             required
             placeholder="작성자 입력..."
+            readonly
           ></b-form-input>
         </b-form-group>
 
