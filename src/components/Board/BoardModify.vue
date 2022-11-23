@@ -1,13 +1,11 @@
 <template>
-  <div class="col-12">
-    <div class="card recent-sales overflow-auto">
-      <div class="card-body"><board-input-item type="modify" /></div>
-    </div>
-  </div>
+  <b-container class="bv-example-row mt-3">
+    <board-input-item type="modify" />
+  </b-container>
 </template>
 
 <script>
-import BoardInputItem from "@/components/board/item/BoardInputItem";
+import BoardInputItem from "@/components/Board/item/BoardInputItem";
 
 export default {
   name: "BoardModify",

@@ -46,7 +46,7 @@ const routes = [
         component: () => import("@/components/Board/BoardList"),
       },
       {
-        path: "boardarticleview",
+        path: "view/:articleno",
         name: "boardarticleview",
         component: () => import("@/components/Board/BoardArticleView"),
       },
@@ -55,6 +55,16 @@ const routes = [
         name: "boardwrite",
         component: () => import("@/components/Board/BoardWrite"),
       },
+      {
+        path:"delete/:articleno",
+        name:"boarddelete",
+        component:()=>import("@/components/Board/BoardDelete"),
+      },
+      {
+        path:"modify",
+        name:"boardmodify",
+        component: () => import("@/components/Board/BoardModify"),
+      }
     ],
   },
   {
