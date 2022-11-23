@@ -25,10 +25,12 @@
       <div v-show="false">
         <b-button id="mymodal" @click="$bvModal.show('bv-modal-example')">Open Modal</b-button>
         <b-modal id="bv-modal-example">
-          <template #modal-title> {{ title }} </template>
-          <div class="d-block text-center">
-            <h3>상세주소 : {{ address }}</h3>
-            <h3>전화번호 : {{ tel }}</h3>
+          <template #modal-title>
+            <span class="modaltitle">{{ title }}</span>
+          </template>
+          <div class="d-block text-left">
+            <h3 id="detail">상세주소 : {{ address }}</h3>
+            <h3 id="tel">전화번호 : {{ tel }}</h3>
           </div>
           <template #modal-footer="{ cancel, hide }">
             <!-- Emulate built in modal footer ok and cancel button actions -->
@@ -254,11 +256,12 @@ export default {
             clickable: true,
           });
 
-          kakao.maps.event.addListener(marker, "click", function () {
+          kakao.maps.event.addListener(marker, "click", () => {
             this.title = title;
             this.address = address;
             this.tel = tel;
             document.querySelector("#mymodal").click();
+            // document.getElementById("detail").innerHTML = "hello";
           });
           // kakao.maps.event.addListener(marker, "click", function () {
           // 마커 위에 인포윈도우를 표시합니다
@@ -287,7 +290,6 @@ export default {
       this.map.setBounds(bounds);
     },
     returnTitle(title) {
-      console.log("여기지롱");
       this.title = title;
       return this.title;
     },
