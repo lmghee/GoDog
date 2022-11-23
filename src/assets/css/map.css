@@ -186,7 +186,17 @@
 .category .ico_hospital {
   background-position: -10px -135px;
 }
-
+.modaltitle {
+  font-family: "GmarketSansMedium";
+  font-size: 30px;
+  margin: 10px 0 0 0;
+}
+#detail,
+#tel {
+  font-family: "LeferiPoint-WhiteObliqueA";
+  font-size: 20px;
+  margin: 5px 0 0px 0;
+}
 @font-face {
   font-family: "LeferiPoint-WhiteObliqueA";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff")
