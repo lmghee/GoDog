@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.ssafy.repository.MapMapper">
+	
+	<insert id="insertBookmark" parameterType="BookmarkDto">
+		insert into bookmark (id, contentSeq)
+		select #{id}, #{contentSeq} from dual
+		where not exists (select 1 from bookmark where id = #{id} and contentSeq = #{contentSeq} limit 1)
+	</insert>
+	
+	<select id="bookmarklist" parameterType="string" resultType="BookmarkDto">
+		select b.bookmark_no, b.id, b.contentSeq, t.title, t.address, t.tel
+		from bookmark b, tourlist t
+		where id = #{id} and b.contentSeq = t.contentSeq;
+	</select>
+	
+	<delete id="deleteBookmark" parameterType="string">
+		Delete from bookmark
+		where bookmark_no=#{bookmark_no}
+	</delete>
+	
+	<select id="travelmappart" parameterType="string" resultType="TourDto">
+		select * 
+		from tourlist
+		where pccode = #{name};
+	</select>
+	
+	<select id="getGugun" resultType="string">
+		select acname
+		from gangwoncode
+		order by acname asc;
+	</select>
+	
+	<select id="travelmaplist" parameterType="string" resultType="TourDto">
+		select *
+		from tourlist
+		where areaName = #{areaName};
+	</select>
+
+</mapper>
