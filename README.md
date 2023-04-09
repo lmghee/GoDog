@@ -1,3 +1,5 @@
+![그림2](https://user-images.githubusercontent.com/109948739/230762041-b424feba-f7a2-4bbf-b385-d78b8df8bd1c.png)
+
 ## 목차
 
 1. [**서비스 소개**](#1)
